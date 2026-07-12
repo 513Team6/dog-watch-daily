@@ -47,11 +47,6 @@ h1 {
   margin-bottom: 4px;
 }
 
-.entry-caption {
-  font-size: 1rem;
-  margin: 0;
-}
-
 label {
   display: block;
   font-weight: 600;
@@ -89,12 +84,19 @@ a {
   color: #b5652f;
 }
 
+.dog-link-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
 .dog-link {
   display: block;
+  flex: 1;
   padding: 12px 14px;
   border-radius: 10px;
   background: #fff;
-  margin-bottom: 8px;
   text-decoration: none;
   color: #2b2420;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
@@ -103,6 +105,53 @@ a {
 .dog-link small {
   display: block;
   color: #9a8f83;
+}
+
+.delete-button {
+  margin-top: 0;
+  padding: 10px 14px;
+  background: #fff;
+  color: #b3261e;
+  border: 1px solid #e8c9c4;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.delete-button:hover {
+  background: #fdf1f0;
+}
+
+.dog-link-row form {
+  margin: 0;
+}
+
+.entry-caption {
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+
+.edit-button,
+.cancel-button {
+  margin-top: 6px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  background: transparent;
+  color: #9a8f83;
+  border: 1px solid #ddd3c8;
+  box-shadow: none;
+}
+
+.edit-button:hover,
+.cancel-button:hover {
+  background: #f1ebe1;
+}
+
+.entry-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.entry-edit-actions button {
+  margin-top: 10px;
 }
 
 .share-url {

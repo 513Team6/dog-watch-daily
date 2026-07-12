@@ -2,7 +2,8 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createDog, addPhotoEntry } from "@/lib/blob";
+import { revalidatePath } from "next/cache";
+import { createDog, addPhotoEntry, updateEntryCaption, deleteDog } from "@/lib/blob";
 
 export async function logout() {
   cookies().delete("admin_auth");
@@ -28,4 +29,16 @@ export async function uploadPhotoAction(slug, formData) {
 
   await addPhotoEntry(slug, file, caption);
   redirect(`/admin/dogs/${slug}?success=1`);
+}
+
+export async function editCaptionAction(slug, uploadedAt, formData) {
+  const caption = formData.get("caption")?.toString().trim();
+  await updateEntryCaption(slug, uploadedAt, caption);
+  revalidatePath(`/admin/dogs/${slug}`);
+}
+
+export async function deleteDogAction(slug) {
+  await deleteDog(slug);
+  revalidatePath("/admin");
+  redirect("/admin");
 }

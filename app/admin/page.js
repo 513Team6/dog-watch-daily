@@ -1,5 +1,6 @@
 import { listDogs } from "@/lib/blob";
-import { createDogAction, logout } from "./actions";
+import { createDogAction, deleteDogAction, logout } from "./actions";
+import DeleteDogButton from "./DeleteDogButton";
 
 export const dynamic = "force-dynamic";
 
@@ -17,10 +18,13 @@ export default async function AdminHome() {
       {dogs.length === 0 && <p className="empty">No dogs yet, add your first one below.</p>}
 
       {dogs.map((dog) => (
-        <a key={dog.slug} className="dog-link" href={`/admin/dogs/${dog.slug}`}>
-          {dog.name}
-          <small>Owner: {dog.owner}</small>
-        </a>
+        <div key={dog.slug} className="dog-link-row">
+          <a className="dog-link" href={`/admin/dogs/${dog.slug}`}>
+            {dog.name}
+            <small>Owner: {dog.owner}</small>
+          </a>
+          <DeleteDogButton action={deleteDogAction.bind(null, dog.slug)} name={dog.name} />
+        </div>
       ))}
 
       <div className="card">

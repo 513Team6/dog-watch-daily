@@ -1,8 +1,9 @@
 import { getDogMeta, getEntries } from "@/lib/blob";
-import { uploadPhotoAction } from "../../actions";
+import { uploadPhotoAction, editCaptionAction } from "../../actions";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import CopyLinkButton from "../../CopyLinkButton";
+import EntryCaptionEditor from "../../EntryCaptionEditor";
 
 export const dynamic = "force-dynamic";
 
@@ -54,7 +55,10 @@ export default async function DogAdminPage({ params, searchParams }) {
         <div className="card" key={i}>
           <img className="entry-photo" src={entry.url} alt={entry.caption || meta.name} />
           <div className="entry-date">{entry.date}</div>
-          {entry.caption && <p className="entry-caption">{entry.caption}</p>}
+          <EntryCaptionEditor
+            action={editCaptionAction.bind(null, slug, entry.uploadedAt)}
+            caption={entry.caption}
+          />
         </div>
       ))}
     </div>
