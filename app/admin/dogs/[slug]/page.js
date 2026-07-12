@@ -1,6 +1,8 @@
 import { getDogMeta, getEntries } from "@/lib/blob";
 import { uploadPhotoAction } from "../../actions";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
+import CopyLinkButton from "../../CopyLinkButton";
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +13,11 @@ export default async function DogAdminPage({ params, searchParams }) {
 
   const entries = await getEntries(slug);
   const boundUpload = uploadPhotoAction.bind(null, slug);
-  const shareUrl = `https://YOUR-DOMAIN.vercel.app/dog/${slug}`;
+
+  const headersList = headers();
+  const host = headersList.get("host");
+  const protocol = host?.startsWith("localhost") ? "http" : "https";
+  const shareUrl = `${protocol}://${host}/dog/${slug}`;
 
   return (
     <div>
@@ -23,10 +29,8 @@ export default async function DogAdminPage({ params, searchParams }) {
 
       <div className="card">
         <strong>Link to send the owner:</strong>
-        <div className="share-url">/dog/{slug}</div>
-        <p style={{ fontSize: "0.8rem", color: "#9a8f83" }}>
-          Add your Vercel domain in front, e.g. {shareUrl}
-        </p>
+        <div className="share-url">{shareUrl}</div>
+        <CopyLinkButton url={shareUrl} />
       </div>
 
       <div className="card">

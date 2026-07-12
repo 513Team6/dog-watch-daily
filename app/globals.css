@@ -114,6 +114,12 @@ a {
   margin-top: 6px;
 }
 
+.copy-link-button {
+  margin-top: 10px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
 .empty {
   color: #9a8f83;
   font-style: italic;
