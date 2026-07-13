@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import CopyLinkButton from "../../CopyLinkButton";
 import EntryCaptionEditor from "../../EntryCaptionEditor";
+import PhotoPicker from "../../PhotoPicker";
 
 export const dynamic = "force-dynamic";
 
@@ -40,7 +41,7 @@ export default async function DogAdminPage({ params, searchParams }) {
         {searchParams?.error && <p style={{ color: "#b3261e" }}>Please choose a photo.</p>}
         <form action={boundUpload}>
           <label htmlFor="photo">Photo</label>
-          <input type="file" id="photo" name="photo" accept="image/*" capture="environment" required />
+          <PhotoPicker />
 
           <label htmlFor="caption">Caption</label>
           <input type="text" id="caption" name="caption" placeholder="Had a great walk today!" />
