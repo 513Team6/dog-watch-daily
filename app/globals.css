@@ -207,8 +207,12 @@ input.photo-picker-input {
 }
 
 .submit-button.ready {
-  background: #dd9865;
+  background: #b5652f;
   color: #fff;
+}
+
+.submit-button.ready:hover {
+  background: #9c5527;
 }
 
 .submit-button:disabled {
@@ -219,7 +223,7 @@ input.photo-picker-input {
   position: absolute;
   inset: 0;
   width: 0;
-  background: #b5652f;
+  background: #9c5527;
 }
 
 .submit-button.pending .submit-button-fill {
