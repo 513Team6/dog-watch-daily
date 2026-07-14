@@ -27,7 +27,12 @@ export async function uploadPhotoAction(slug, formData) {
     redirect(`/admin/dogs/${slug}?error=nofile`);
   }
 
-  await addPhotoEntry(slug, file, caption);
+  try {
+    await addPhotoEntry(slug, file, caption);
+  } catch (err) {
+    redirect(`/admin/dogs/${slug}?error=upload`);
+  }
+
   redirect(`/admin/dogs/${slug}?success=1`);
 }
 

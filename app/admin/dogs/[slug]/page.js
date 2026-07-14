@@ -4,9 +4,14 @@ import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import CopyLinkButton from "../../CopyLinkButton";
 import EntryCaptionEditor from "../../EntryCaptionEditor";
-import PhotoPicker from "../../PhotoPicker";
+import PhotoUploadForm from "../../PhotoUploadForm";
 
 export const dynamic = "force-dynamic";
+
+const ERROR_MESSAGES = {
+  nofile: "Please choose a photo.",
+  upload: "Something went wrong posting the photo. Please try again.",
+};
 
 export default async function DogAdminPage({ params, searchParams }) {
   const { slug } = params;
@@ -38,16 +43,12 @@ export default async function DogAdminPage({ params, searchParams }) {
       <div className="card">
         <h2 style={{ marginTop: 0 }}>Post today's photo</h2>
         {searchParams?.success && <p style={{ color: "#2e7d32" }}>Photo posted!</p>}
-        {searchParams?.error && <p style={{ color: "#b3261e" }}>Please choose a photo.</p>}
-        <form action={boundUpload}>
-          <label htmlFor="photo">Photo</label>
-          <PhotoPicker />
-
-          <label htmlFor="caption">Caption</label>
-          <input type="text" id="caption" name="caption" placeholder="Had a great walk today!" />
-
-          <button type="submit">Post photo</button>
-        </form>
+        {searchParams?.error && (
+          <p style={{ color: "#b3261e" }}>
+            {ERROR_MESSAGES[searchParams.error] || "Something went wrong. Please try again."}
+          </p>
+        )}
+        <PhotoUploadForm action={boundUpload} />
       </div>
 
       <h2>Posted so far</h2>
