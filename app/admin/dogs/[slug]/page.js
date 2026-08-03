@@ -27,6 +27,9 @@ export default async function DogAdminPage({ params, searchParams }) {
   const protocol = host?.startsWith("localhost") ? "http" : "https";
   const shareUrl = `${protocol}://${host}/dog/${slug}`;
 
+  const smsMessage = `Thanks for trusting me with your dog! Get updates while you're away by clicking this link: ${shareUrl} -Walker the Dog Walker`;
+  const smsHref = `sms:?&body=${encodeURIComponent(smsMessage)}`;
+
   return (
     <div>
       <p>
@@ -38,7 +41,12 @@ export default async function DogAdminPage({ params, searchParams }) {
       <div className="card">
         <strong>Link to send the owner:</strong>
         <div className="share-url">{shareUrl}</div>
-        <CopyLinkButton url={shareUrl} />
+        <div className="share-actions">
+          <a className="share-action-button" href={smsHref}>
+            Send link
+          </a>
+          <CopyLinkButton url={shareUrl} />
+        </div>
       </div>
 
       <div className="card">

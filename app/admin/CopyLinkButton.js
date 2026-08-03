@@ -12,7 +12,7 @@ export default function CopyLinkButton({ url }) {
   }
 
   return (
-    <button type="button" className="copy-link-button" onClick={handleCopy}>
+    <button type="button" className="share-action-button" onClick={handleCopy}>
       {copied ? "Copied!" : "Copy link"}
     </button>
   );

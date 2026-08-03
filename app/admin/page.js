@@ -36,11 +36,12 @@ export default async function AdminHome() {
           <label htmlFor="owner">Owner's name</label>
           <input type="text" id="owner" name="owner" required />
 
-          <label htmlFor="startDate">First day watching</label>
-          <input type="date" id="startDate" name="startDate" />
-
-          <label htmlFor="endDate">Last day watching</label>
-          <input type="date" id="endDate" name="endDate" />
+          <label htmlFor="startDate">Dates watching</label>
+          <div className="date-range-inputs">
+            <input type="date" id="startDate" name="startDate" aria-label="First day watching" />
+            <span className="date-range-sep">to</span>
+            <input type="date" id="endDate" name="endDate" aria-label="Last day watching" />
+          </div>
 
           <button type="submit">Create dog page</button>
         </form>
