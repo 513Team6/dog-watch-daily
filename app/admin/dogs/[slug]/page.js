@@ -1,9 +1,10 @@
 import { getDogMeta, getEntries } from "@/lib/blob";
-import { uploadPhotoAction, editCaptionAction } from "../../actions";
+import { uploadPhotoAction, editCaptionAction, editDatesAction } from "../../actions";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import CopyLinkButton from "../../CopyLinkButton";
 import EntryCaptionEditor from "../../EntryCaptionEditor";
+import DateRangeEditor from "../../DateRangeEditor";
 import PhotoUploadForm from "../../PhotoUploadForm";
 
 export const dynamic = "force-dynamic";
@@ -38,6 +39,15 @@ export default async function DogAdminPage({ params, searchParams }) {
         <strong>Link to send the owner:</strong>
         <div className="share-url">{shareUrl}</div>
         <CopyLinkButton url={shareUrl} />
+      </div>
+
+      <div className="card">
+        <strong>Dates watching:</strong>
+        <DateRangeEditor
+          action={editDatesAction.bind(null, slug)}
+          startDate={meta.startDate}
+          endDate={meta.endDate}
+        />
       </div>
 
       <div className="card">

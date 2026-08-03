@@ -56,7 +56,8 @@ label {
 
 input[type="text"],
 input[type="password"],
-input[type="file"] {
+input[type="file"],
+input[type="date"] {
   width: 100%;
   padding: 10px;
   border-radius: 8px;

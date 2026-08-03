@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { createDog, addPhotoEntry, updateEntryCaption, deleteDog } from "@/lib/blob";
+import { createDog, addPhotoEntry, updateEntryCaption, updateDogDates, deleteDog } from "@/lib/blob";
 
 export async function logout() {
   cookies().delete("admin_auth");
@@ -13,9 +13,11 @@ export async function logout() {
 export async function createDogAction(formData) {
   const name = formData.get("name")?.toString().trim();
   const owner = formData.get("owner")?.toString().trim();
+  const startDate = formData.get("startDate")?.toString().trim();
+  const endDate = formData.get("endDate")?.toString().trim();
   if (!name || !owner) return;
 
-  const slug = await createDog({ name, owner });
+  const slug = await createDog({ name, owner, startDate, endDate });
   redirect(`/admin/dogs/${slug}`);
 }
 
@@ -39,6 +41,13 @@ export async function uploadPhotoAction(slug, formData) {
 export async function editCaptionAction(slug, uploadedAt, formData) {
   const caption = formData.get("caption")?.toString().trim();
   await updateEntryCaption(slug, uploadedAt, caption);
+  revalidatePath(`/admin/dogs/${slug}`);
+}
+
+export async function editDatesAction(slug, formData) {
+  const startDate = formData.get("startDate")?.toString().trim();
+  const endDate = formData.get("endDate")?.toString().trim();
+  await updateDogDates(slug, startDate, endDate);
   revalidatePath(`/admin/dogs/${slug}`);
 }
 

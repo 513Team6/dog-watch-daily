@@ -8,6 +8,11 @@ function formatDate(dateStr) {
   return d.toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });
 }
 
+function formatShortDate(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
 export default async function DogPage({ params }) {
   const { slug } = params;
   const meta = await getDogMeta(slug);
@@ -18,7 +23,15 @@ export default async function DogPage({ params }) {
   return (
     <div>
       <h1>🐶 {meta.name}</h1>
-      <p className="subtitle">Daily updates while you're away</p>
+      <p className="subtitle">
+        Daily updates while you're away
+        {meta.startDate && meta.endDate && (
+          <>
+            <br />
+            {formatShortDate(meta.startDate)} – {formatShortDate(meta.endDate)}
+          </>
+        )}
+      </p>
 
       {entries.length === 0 && (
         <p className="empty">No photos posted yet, check back soon!</p>
